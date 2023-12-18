@@ -16,8 +16,8 @@ urlpatterns = [
     path('board/<str:id>/', views.board, name='board'),
     path('board/update/<str:id>/', views.board_update, name='board_update'),
     path('board/delete/<str:id>/', views.board_delete, name='board_delete'),
-    path('board/add/<str:id>/', views.board_add_user, name='board_add_user'),
-    path('board/remove/<str:id>/', views.board_remove_user, name='board_remove_user'),
+    path('board/add/user/<str:id>/', views.board_add_user, name='board_add_user'),
+    path('board/remove/user/<str:id>/', views.board_remove_user, name='board_remove_user'),
     # end
     # list
     path('board/<str:id>/lists/', views.all_list, name='all_list'),
