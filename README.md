@@ -246,7 +246,7 @@ documentation brève du projet.
 - **Corps de la requête :**
   - `name` : Nom de la carte
   - `description` : Description de la carte
-  - `importance` : Importance de la carte
+  - `importance` : Importance de la carte (1,10)
 - **Permissions :** Authentification requise et appartenance au tableau
 - **Réponse :**
   - Statut 201 CREATED : Création de la carte réussie
@@ -272,7 +272,7 @@ documentation brève du projet.
 - **Corps de la requête :**
   - `name` : Nouveau nom de la carte (optionnel)
   - `description` : Nouvelle description de la carte (optionnel)
-  - `importance` : Nouvelle importance de la carte (optionnel)
+  - `importance` : Nouvelle importance de la carte (1,10) (optionnel)
   - `done` : Marquer la carte comme terminée (optionnel)
 - **Permissions :** Authentification requise et appartenance au tableau
 - **Réponse :**
