@@ -53,7 +53,7 @@ Description brève de votre projet.
 ### Obtention des jetons
 
 - **Méthode :** POST
-- **Endpoint :** `/token_obtain_pair/`
+- **Endpoint :** `/token/`
 - **Description :** Obtient une paire de jetons d'accès et de rafraîchissement.
 - **Corps de la requête :**
   - `username` : Nom d'utilisateur
@@ -66,7 +66,7 @@ Description brève de votre projet.
 ### Rafraîchissement du jeton
 
 - **Méthode :** POST
-- **Endpoint :** `/token_refresh/`
+- **Endpoint :** `/token/refresh/`
 - **Description :** Rafraîchit le jeton d'accès.
 - **Corps de la requête :**
   - `refresh` : Jeton de rafraîchissement
