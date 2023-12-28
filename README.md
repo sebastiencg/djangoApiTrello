@@ -1,8 +1,6 @@
-Bien sûr, voici la documentation mise à jour dans un format adapté à une page README GitHub :
-
 # Nom de Votre Projet
 
-Description brève de votre projet.
+documentation brève du projet.
 
 ---
 
