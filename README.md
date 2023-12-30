@@ -1,4 +1,4 @@
-# ip no create
+# https://django.miantsebastien.com/api/
 
 documentation brève du projet.
 
