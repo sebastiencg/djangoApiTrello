@@ -9,6 +9,8 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('user/', views.user, name='user_info'),
+
     # end
     # board
     path('boards/', views.all_board, name='all_board'),
@@ -18,6 +20,7 @@ urlpatterns = [
     path('board/delete/<str:id>/', views.board_delete, name='board_delete'),
     path('board/add/user/<str:id>/', views.board_add_user, name='board_add_user'),
     path('board/remove/user/<str:id>/', views.board_remove_user, name='board_remove_user'),
+
     # end
     # list
     path('board/<str:id>/lists/', views.all_list, name='all_list'),

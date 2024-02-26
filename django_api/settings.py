@@ -23,9 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure--k-ug9@i!geb2w5cc%qlqw+qhf_-gd!8w$s7#=_budo(gjrhfy'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['django.miantsebastien.com']
 
 
 # Application definition
@@ -40,9 +41,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_simplejwt',
+    'corsheaders',
 
 ]
+CORS_ALLOWED_METHODS = ('GET', 'POST', 'PUT', 'DELETE', 'PATCH')
+CORS_ALLOWED_HEADERS = ('accept', 'Authorization', 'Content-Type', 'X-Requested-With', 'X-CSRFToken', 'User-agent')
 AUTH_USER_MODEL = 'api.User'
+
+CORS_ALLOW_ALL_ORIGINS = True
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -60,6 +67,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'django_api.urls'
@@ -82,16 +91,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'django_api.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'trelloDjango',
-        'USER': 'sebastien',
-        'PASSWORD': '1234',
+        'NAME': 'django',
+        'USER': 'partiel',
+        'PASSWORD': '932tB6cnUyOVutKzQtD5K9y1',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }

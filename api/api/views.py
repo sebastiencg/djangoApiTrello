@@ -24,13 +24,25 @@ def register(request):
 
 
 # User end
+@permission_classes([IsAuthenticated])
+@api_view(['GET'])
+def user(request):
+    if request.method == 'GET':
+        serializer = UserSerializer(request.user, many=False)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
 # -----------------------------------------------------------------------------------------------------------
 # board start
 @permission_classes([IsAuthenticated])
 @api_view(['GET'])
 def all_board(request):
-    board = Board.objects.all()
-    serialized_board = BoardSerializer(board, many=True)
+   #board = Board.objects.all()
+    boards = Board.objects.filter(members=request.user)
+
+
+    serialized_board = BoardSerializer(boards, many=True)
     return Response(serialized_board.data, status=status.HTTP_200_OK)
 
 
@@ -55,6 +67,7 @@ def new_board(request):
                 'description': request.data['description'],
                 'author': request.user.id,
             }
+            print(new_board_data)
             new_board_serializer = BoardSerializer(data=new_board_data)
             if new_board_serializer.is_valid():
                 new_board_instance = new_board_serializer.save()
@@ -85,22 +98,31 @@ def board_add_user(request, id):
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
 @permission_classes([IsAuthenticated])
-@api_view(['DELETE'])
+@api_view(['PATCH'])
 def board_remove_user(request, id):
     try:
         board = Board.objects.get(id=id)
     except Board.DoesNotExist:
-        return Response({"detail": "Board not found."}, status=status.HTTP_404_NOT_FOUND)
-    try:
-        user_id = request.data.get('id')
-    except User.DoesNotExist:
-        return Response({"detail": "User not found."}, status=status.HTTP_404_NOT_FOUND)
+        return Response({"detail": "Tableau non trouvé."}, status=status.HTTP_404_NOT_FOUND)
 
-    if request.method == 'DELETE':
+    user_id = request.data.get('id')
+
+    try:
+        user = User.objects.get(id=user_id)
+    except User.DoesNotExist:
+        return Response({"detail": "Utilisateur non trouvé."}, status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'PATCH':
         if board.author == request.user:
-            board.members.remove(user_id)
-            return Response({"detail": "User remove to the board successfully."}, status=status.HTTP_201_CREATED)
+            # Assurez-vous que l'utilisateur est membre avant de tenter de le supprimer
+            if user in board.members.all():
+                board.members.remove(user)
+                return Response({"detail": "Utilisateur retiré du tableau avec succès."}, status=status.HTTP_201_CREATED)
+            else:
+                return Response({"detail": "L'utilisateur n'est pas membre du tableau."}, status=status.HTTP_400_BAD_REQUEST)
+
     return Response(status=status.HTTP_400_BAD_REQUEST)
+
 
 
 @permission_classes([IsAuthenticated])
