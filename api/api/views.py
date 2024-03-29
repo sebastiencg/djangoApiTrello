@@ -114,14 +114,20 @@ def board_remove_user(request, id):
 
     if request.method == 'PATCH':
         if board.author == request.user:
-            # Assurez-vous que l'utilisateur est membre avant de tenter de le supprimer
+            # Vérifier que l'utilisateur à retirer est bien membre du tableau
             if user in board.members.all():
-                board.members.remove(user)
-                return Response({"detail": "Utilisateur retiré du tableau avec succès."}, status=status.HTTP_201_CREATED)
+            # Ne retirer l'utilisateur que si ce dernier est différent de l'auteur du tableau
+                if user != board.author:
+                    board.members.remove(user)
+                    return Response({"detail": "Utilisateur retiré du tableau avec succès."}, status=status.HTTP_201_CREATED)
+                else:
+                    return Response({"detail": "Impossible de retirer l'auteur du tableau."}, status=status.HTTP_400_BAD_REQUEST)
             else:
                 return Response({"detail": "L'utilisateur n'est pas membre du tableau."}, status=status.HTTP_400_BAD_REQUEST)
-
+        else:
+            return Response({"detail": "L'utilisateur n'est pas autorisé à effectuer cette action."}, status=status.HTTP_403_FORBIDDEN)
     return Response(status=status.HTTP_400_BAD_REQUEST)
+
 
 
 
