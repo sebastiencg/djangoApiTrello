@@ -290,3 +290,16 @@ documentation brève du projet.
   - Statut 200 OK : Carte supprimée avec succès
   - Statut 400 BAD REQUEST :Échec de la suppression
   - Statut 404 NOT FOUND : cartr non trouvée ou utilisateur non membre
+
+### Mise à jour de la carte (list)
+
+- **Méthode :** PUT
+- **Endpoint :** `/card/update/list/{id}/`
+- **Description :** Met à jour les informations de la carte la list.
+- **Corps de la requête :**
+  - `new_list_id` : id de la liste (optionnel)
+- **Permissions :** Authentification requise et appartenance au tableau
+- **Réponse :**
+  - Statut 201 CREATED : Carte mise à jour avec succès
+  - Statut 400 BAD REQUEST : Entrée invalide ou mise à jour échouée
+  - Statut 404 NOT FOUND : Carte non trouvée ou utilisateur non membre:
