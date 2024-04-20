@@ -1,5 +1,4 @@
-# https://django.miantsebastien.com/api/ (only postman)
-
+# https://django.miantsebastien.com/api/
 documentation brève du projet.
 
 ---
